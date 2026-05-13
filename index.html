@@ -78,6 +78,10 @@
                         <div class="service-icon green">📝</div>
                         <span>Asistencia</span>
                     </div>
+                    <div class="service-item" id="shortcut-horarios">
+                        <div class="service-icon red">📅</div>
+                        <span>Horarios</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -116,6 +120,53 @@
                         </div>
                         <p>Escanea para validar</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Horarios de Clases -->
+        <section id="horarios" class="page-section hidden">
+            <div class="section-header">
+                <button class="back-btn" id="back-to-dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <h2>Horarios de Clases</h2>
+            </div>
+
+            <div id="grade-selector" class="grades-grid">
+                <div class="grade-card" data-grade="7mo">
+                    <span class="grade-num">7°</span>
+                    <span class="grade-label">Séptimo</span>
+                </div>
+                <div class="grade-card" data-grade="8vo">
+                    <span class="grade-num">8°</span>
+                    <span class="grade-label">Octavo</span>
+                </div>
+                <div class="grade-card" data-grade="9no">
+                    <span class="grade-num">9°</span>
+                    <span class="grade-label">Noveno</span>
+                </div>
+                <div class="grade-card" data-grade="10mo">
+                    <span class="grade-num">10°</span>
+                    <span class="grade-label">Décimo</span>
+                </div>
+                <div class="grade-card" data-grade="11vo">
+                    <span class="grade-num">11°</span>
+                    <span class="grade-label">Undécimo</span>
+                </div>
+                <div class="grade-card" data-grade="12vo">
+                    <span class="grade-num">12°</span>
+                    <span class="grade-label">Duodécimo</span>
+                </div>
+            </div>
+
+            <div id="schedule-view" class="schedule-container hidden">
+                <div class="schedule-header">
+                    <h3 id="selected-grade-title">7mo Año - Grupo 7-1</h3>
+                    <button class="btn-text" id="change-grade">Cambiar grado</button>
+                </div>
+                <div class="schedule-list" id="schedule-list">
+                    <!-- Las clases se insertarán dinámicamente con JS -->
                 </div>
             </div>
         </section>

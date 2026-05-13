@@ -16,12 +16,12 @@
 
 /* Modo Oscuro - Variables */
 [data-theme="dark"] {
-    --bg-white: #0f0f0f;
-    --white: #1a1a1a;
-    --text-dark: #f1f3f9;
+    --bg-white: #0a0b10;
+    --white: #161822;
+    --text-dark: #f8fafc;
     --text-muted: #94a3b8;
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --primary-color: #a33b41; /* Una versión ligeramente más clara para mejor visibilidad en modo oscuro */
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --primary-color: #ff9da3; /* Mucho más claro para contraste en fondo negro */
 }
 
 * {
@@ -61,8 +61,16 @@ body {
     color: var(--primary-color);
 }
 
+[data-theme="dark"] .logo-text {
+    color: #ffffff; /* Blanco puro en modo oscuro para el nombre */
+}
+
 .logo-text .accent {
-    color: #4a181b; /* Un tono más oscuro del borgoña para contraste */
+    color: #4a181b; 
+}
+
+[data-theme="dark"] .logo-text .accent {
+    color: var(--primary-color); /* El acento usa el borgoña claro en modo oscuro */
 }
 
 .header-avatar {
@@ -106,7 +114,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 @keyframes fadeIn {
@@ -270,6 +278,12 @@ body {
     margin-bottom: 20px;
 }
 
+@media (max-width: 350px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .service-item {
     background: var(--white);
     padding: 15px 10px;
@@ -307,7 +321,143 @@ body {
 .service-icon.orange { background: rgba(255, 159, 64, 0.15); }
 .service-icon.blue { background: rgba(108, 36, 40, 0.15); }
 .service-icon.green { background: rgba(42, 157, 143, 0.15); }
-.service-icon.red { background: rgba(217, 4, 41, 0.15); }
+.service-icon.red { background: rgba(108, 36, 40, 0.15); }
+
+/* =========================================
+   HORARIOS
+   ========================================= */
+.back-btn {
+    background: var(--bg-white);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.grades-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.grade-card {
+    background: var(--white);
+    padding: 25px 15px;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.grade-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(108, 36, 40, 0.3);
+}
+
+.grade-card.active {
+    border-color: var(--primary-color);
+    background: rgba(108, 36, 40, 0.05);
+    transform: scale(1.05);
+}
+
+[data-theme="dark"] .grade-card.active {
+    background: rgba(255, 157, 163, 0.1);
+}
+
+.grade-num {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.grade-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] .schedule-header {
+    border-bottom-color: rgba(255,255,255,0.1);
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.schedule-item {
+    background: var(--white);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--card-shadow);
+    border-left: 5px solid var(--primary-color);
+    animation: slideInUp 0.4s ease-out both;
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.time-box {
+    text-align: center;
+    min-width: 60px;
+}
+
+.time-start {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.time-end {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.subject-details h4 {
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.subject-details p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
 
 /* =========================================
    CARNET DIGITAL
@@ -317,11 +467,11 @@ body {
 }
 
 .id-card {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #4a181b 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, #6c2428 0%, #4a181b 100%);
+    color: #ffffff; /* Texto siempre blanco en la parte superior del carnet */
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(108, 36, 40, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     max-width: 350px;
     margin: 0 auto;
 }
@@ -336,7 +486,7 @@ body {
 
 .inst-logo {
     background: #4a181b;
-    color: var(--white);
+    color: #ffffff;
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: 800;
@@ -398,8 +548,8 @@ body {
 
 .id-card-footer {
     padding: 20px;
-    background: var(--white);
-    color: var(--text-dark);
+    background: #ffffff; /* Footer siempre blanco para parecer carnet real */
+    color: #1a1a1a; /* Texto del footer siempre oscuro */
 }
 
 .qr-container {
@@ -421,7 +571,7 @@ body {
 }
 
 .qr-pixel {
-    background: var(--white);
+    background: #ffffff;
 }
 
 .qr-container p {

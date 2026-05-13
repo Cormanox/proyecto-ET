@@ -108,6 +108,111 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const shortcutHorarios = document.getElementById('shortcut-horarios');
+    if (shortcutHorarios) {
+        shortcutHorarios.addEventListener('click', () => switchSection('horarios'));
+    }
+
+    // Lógica interna de la sección Horarios
+    const gradeSelector = document.getElementById('grade-selector');
+    const scheduleView = document.getElementById('schedule-view');
+    const scheduleList = document.getElementById('schedule-list');
+    const gradeTitle = document.getElementById('selected-grade-title');
+    const btnBackToGrades = document.getElementById('change-grade');
+    const btnBackToDashboard = document.getElementById('back-to-dashboard');
+
+    const dummySchedules = {
+        "7mo": [
+            { time: "07:00", end: "08:20", subject: "Matemáticas", prof: "Lic. Ana Vega" },
+            { time: "08:30", end: "09:50", subject: "Español", prof: "Lic. Mario Solís" },
+            { time: "10:00", end: "11:20", subject: "Ciencias", prof: "Lic. Karla Ruiz" }
+        ],
+        "8vo": [
+            { time: "07:00", end: "08:20", subject: "Estudios Sociales", prof: "Lic. Luis Castro" },
+            { time: "08:30", end: "09:50", subject: "Inglés", prof: "Lic. Elena Mora" },
+            { time: "10:00", end: "11:20", subject: "Edu. Física", prof: "Lic. Jorge Paz" }
+        ],
+        "9no": [
+            { time: "07:00", end: "08:20", subject: "Cívica", prof: "Lic. Pedro Juan" },
+            { time: "08:30", end: "09:50", subject: "Artes Plásticas", prof: "Lic. Sofía Art" },
+            { time: "10:00", end: "11:20", subject: "Música", prof: "Lic. Roberto Do" }
+        ],
+        "10mo": [
+            { time: "17:00", end: "18:20", subject: "Programación I", prof: "Ing. Pablo Tech" },
+            { time: "18:30", end: "19:50", subject: "Redes", prof: "Ing. Carlos Net" },
+            { time: "20:00", end: "21:20", subject: "Ética Prof.", prof: "Lic. Marta Valores" }
+        ],
+        "11vo": [
+            { time: "17:00", end: "18:20", subject: "Bases de Datos", prof: "Ing. Sara Query" },
+            { time: "18:30", end: "19:50", subject: "Diseño Web", prof: "Ing. Erick UI" },
+            { time: "20:00", end: "21:20", subject: "Práctica Supervisada", prof: "Ing. Fabián Guía" }
+        ],
+        "12vo": [
+            { time: "17:00", end: "18:20", subject: "Proyecto Final", prof: "Ing. Daniel Sprint" },
+            { time: "18:30", end: "19:50", subject: "Emprendimiento", prof: "Lic. Julia Start" },
+            { time: "20:00", end: "21:20", subject: "Inglés Técnico", prof: "Lic. Wilson Speak" }
+        ]
+    };
+
+    const renderSchedule = (grade, selectedCard) => {
+        const schedule = dummySchedules[grade];
+        gradeTitle.textContent = `${grade.toUpperCase()} Año - Grupo ${grade.charAt(0)}-1`;
+        scheduleList.innerHTML = '';
+
+        // Marcar tarjeta activa
+        document.querySelectorAll('.grade-card').forEach(card => card.classList.remove('active'));
+        if (selectedCard) selectedCard.classList.add('active');
+
+        schedule.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'schedule-item';
+            div.style.animationDelay = `${index * 0.1}s`;
+            div.innerHTML = `
+                <div class="time-box">
+                    <span class="time-start">${item.time}</span>
+                    <span class="time-end">${item.end}</span>
+                </div>
+                <div class="subject-details">
+                    <h4>${item.subject}</h4>
+                    <p>${item.prof}</p>
+                </div>
+            `;
+            scheduleList.appendChild(div);
+        });
+
+        // Pequeña pausa para efecto visual antes de ocultar
+        setTimeout(() => {
+            gradeSelector.classList.add('hidden');
+            scheduleView.classList.remove('hidden');
+        }, 300);
+    };
+
+    document.querySelectorAll('.grade-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const grade = card.getAttribute('data-grade');
+            renderSchedule(grade, card);
+        });
+    });
+
+    btnBackToGrades.addEventListener('click', () => {
+        scheduleView.classList.add('hidden');
+        gradeSelector.classList.remove('hidden');
+        // Quitar estado activo al volver
+        document.querySelectorAll('.grade-card').forEach(card => card.classList.remove('active'));
+    });
+
+    btnBackToDashboard.addEventListener('click', () => {
+        // Si estamos viendo un horario, el botón de atrás debe volver al selector de grados
+        if (!scheduleView.classList.contains('hidden')) {
+            scheduleView.classList.add('hidden');
+            gradeSelector.classList.remove('hidden');
+            document.querySelectorAll('.grade-card').forEach(card => card.classList.remove('active'));
+        } else {
+            // Si ya estamos en el selector, volvemos al dashboard
+            switchSection('dashboard');
+        }
+    });
+
     // Lógica del Carrusel de Noticias
     const slides = document.querySelectorAll('.carousel-slide');
     let currentSlide = 0;
